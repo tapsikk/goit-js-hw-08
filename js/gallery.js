@@ -86,7 +86,7 @@ return images.map(({preview, original, description}) => {
 
 imageList.innerHTML = generateGallery(images);
 
-imageList.addEventListener ('click', generateGallery);
+imageList.addEventListener ('click', galleryClick);
 
 function galleryClick (event) {
   event.preventDefault();
