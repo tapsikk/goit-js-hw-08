@@ -72,7 +72,7 @@ return images.map(({preview, original, description}) => {
   <li class="gallery-item">
   <a class="gallery-link" href="${original}">
   <img
-    class=${preview}
+    class="gallery-image"
     src=${preview}
     data-source=${original}
     alt=${description}
@@ -92,8 +92,8 @@ function galleryClick (event) {
   event.preventDefault();
   const clickElement = event.target;
 
-  if(target.classList.contains('gallery-image')) {
-    const imageURL = target.dataset.sourse;
+  if(clickElement.classList.contains('gallery-image')) {
+    const imageURL = clickElement.dataset.source;
     openModal(imageURL);
   }
 }
@@ -104,4 +104,12 @@ function openModal(imageURL) {
 `);
 
 instance.show();
+document.addEventListener('keydown', closeModalOnEscape);
+
+function closeModalOnEscape(event) {
+if (event.code === 'Escape') {
+  instance.close();
+  document.removeEventListener('keydown', closeModalOnEscape);
+}
+}
 }
