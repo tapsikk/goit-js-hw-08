@@ -73,9 +73,9 @@ return images.map(({preview, original, description}) => {
   <a class="gallery-link" href="${original}">
   <img
     class="gallery-image"
-    src=${preview}
-    data-source=${original}
-    alt=${description}
+    src="${preview}"
+    data-source="${original}"
+    alt="${description}"
   />
 </a>
 </li>
@@ -100,16 +100,21 @@ function galleryClick (event) {
 
 function openModal(imageURL) {
   const instance = basicLightbox.create(`
-  <img src="${imageURL}" width="800" height="600">
-`);
+    <img src="${imageURL}" width="800" height="600">
+  `, {
+  onShow: () => {
+      document.addEventListener('keydown', closeModalOnEscape);
+    },
+  onClose: () => {
+    document.removeEventListener('keydown', closeModalOnEscape);
+  }
+});
 
 instance.show();
-document.addEventListener('keydown', closeModalOnEscape);
 
 function closeModalOnEscape(event) {
-if (event.code === 'Escape') {
-  instance.close();
-  document.removeEventListener('keydown', closeModalOnEscape);
-}
-}
+  if (event.code === 'Escape') {
+    instance.close();
+    }
+  }
 }
